@@ -1,4 +1,33 @@
-jupyter
-pandas
+# ---- 数値計算・データ処理（基盤） ----
 numpy
+scipy          # numpy に依存
+pandas
 matplotlib
+seaborn        # matplotlib / pandas / scipy に依存
+
+# ---- 機械学習 ----
+scikit-learn   # numpy / scipy に依存
+
+# ---- JAX エコシステム ----
+jax[cpu]              # JAX 本体 + CPU 用 jaxlib を同時取得
+equinox               # JAX ベースのニューラルネット・モジュールシステム（pymdp 必須）
+optax                 # JAX ベースの勾配最適化（pyhgf 等で使用）
+mctx                  # JAX ベースの Monte Carlo Tree Search（pymdp 必須）
+
+# ---- 能動的推論・予測符号化 ----
+inferactively-pymdp   # Active Inference（jax / equinox / mctx に依存）
+pyhgf                 # Hierarchical Gaussian Filter（jax / optax に依存）
+
+# ---- 最適化 ----
+pyswarms       # Particle Swarm Optimization（numpy / scipy / matplotlib に依存）
+
+# ---- ベイズ統計・確率的プログラミング ----
+pymc           # pytensor を自動取得（numpy / scipy に依存）
+arviz          # ベイズ事後分布の可視化・診断（pymc と組み合わせて使用）
+
+# ---- ネットワーク解析 ----
+networkx       # グラフ理論・ネットワーク解析の標準ライブラリ
+igraph         # 高速ネットワーク解析（C コアをバンドル）
+leidenalg      # Leiden コミュニティ検出アルゴリズム（igraph に依存）
+python-louvain # Louvain コミュニティ検出（networkx に依存）
+pyvis          # インタラクティブなネットワーク可視化

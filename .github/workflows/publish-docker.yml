@@ -1,0 +1,32 @@
+name: Publish Docker image to GHCR
+
+on:
+  push:
+    branches: ['main']
+    # パッケージ関連ファイルが更新された時のみ実行したい場合は以下をコメントアウト解除
+    # paths: ['Dockerfile', 'install.R', 'requirements.txt']
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          # リポジトリ名部分は小文字である必要があります
+          tags: ghcr.io/${{ github.repository_owner }}/ccp-dev-con:latest

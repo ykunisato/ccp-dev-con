@@ -1,0 +1,64 @@
+{
+  "name": "CCP Dev Container",
+  // GHCRに公開したイメージを使用（初回ビルド後に有効）
+  // "image": "ghcr.io/ykunisato/ccp-dev-con:latest",
+  // ローカルのDockerfileからビルドする場合はこちら（初期セットアップ時）
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+
+  // コンテナ起動時に実行するコマンド
+  "postCreateCommand": "echo 'Dev container ready!'",
+
+  // VS Code の設定
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // --- R ---
+        "REditorSupport.r",           // R言語サポート（補完・文法ハイライト）
+        "RDebugger.r-debugger",       // Rデバッガー
+        "quarto.quarto",              // Quartoドキュメント編集・プレビュー
+
+        // --- Python ---
+        "ms-python.python",           // Python言語サポート
+        "ms-python.vscode-pylance",   // Pylance（高性能な型チェック・補完）
+        "ms-toolsai.jupyter",         // Jupyter Notebook サポート
+
+        // --- Git / GitHub ---
+        "github.vscode-pull-request-github", // GitHub PR・Issue管理
+        "eamodio.gitlens",            // Git履歴・blame表示
+
+        // --- 一般的な開発支援 ---
+        "editorconfig.editorconfig",  // EditorConfig（コードスタイル統一）
+        "streetsidesoftware.code-spell-checker", // スペルチェッカー
+        "yzhang.markdown-all-in-one" // Markdownサポート
+      ],
+      "settings": {
+        // R: httpgd を使ったグラフ描画
+        "r.plot.useHttpgd": true,
+        // R: languageserver 経由の補完を有効化
+        "r.lsp.enabled": true,
+        "r.lsp.diagnostics": true,
+        // Python: インタープリターのパス
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        // エディタ共通設定
+        "editor.formatOnSave": false,
+        "editor.rulers": [80],
+        "files.eol": "\n"
+      }
+    }
+  },
+
+  // ポートフォワード設定
+  "forwardPorts": [
+    8787, // RStudio Server（rocker/tidyverse に内包）
+    8888  // Jupyter Notebook
+  ],
+  "portsAttributes": {
+    "8787": { "label": "RStudio Server", "onAutoForward": "notify" },
+    "8888": { "label": "Jupyter Notebook", "onAutoForward": "notify" }
+  },
+
+  // コンテナ内のデフォルトユーザー
+  "remoteUser": "rstudio"
+}

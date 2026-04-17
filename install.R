@@ -8,6 +8,7 @@ install.packages(
     "remotes",
     # ユーティリティ
     "jsonlite",
+    "jtools",
 
     # ---- 心理統計：混合効果モデル ----
     "lme4",       # 線形・一般化線形混合効果モデル

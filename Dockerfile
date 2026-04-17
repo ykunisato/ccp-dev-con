@@ -31,9 +31,15 @@ RUN apt-get update && apt-get install -y \
 COPY install.R /tmp/install.R
 RUN Rscript /tmp/install.R
 
-# Pythonパッケージのインストール（requirements.txt で管理）
+# Python仮想環境を作成してパッケージをインストール（PEP 668 の制限を回避）
+RUN python3 -m venv /opt/venv && \
+    /opt/venv/bin/pip install --upgrade --no-cache-dir pip
+
 COPY requirements.txt /tmp/requirements.txt
-RUN pip3 install --no-cache-dir --break-system-packages -r /tmp/requirements.txt
+RUN /opt/venv/bin/pip install --no-cache-dir -r /tmp/requirements.txt
+
+# 仮想環境を常に優先するようにパスを設定
+ENV PATH="/opt/venv/bin:$PATH"
 
 # Codespacesで標準的に使われるユーザー（rockerでは 'rstudio' がデフォルトで存在）
 USER rstudio

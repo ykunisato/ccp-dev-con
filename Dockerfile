@@ -16,8 +16,6 @@ RUN apt-get update && apt-get install -y \
     liblapack-dev \
     libblas-dev \
     gfortran \
-    # brms (Stan) のコンパイルに必要
-    libv8-dev \
     # qgraph, networktools 等のグラフィックス依存
     libglpk-dev \
     libgmp-dev \

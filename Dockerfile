@@ -23,6 +23,11 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libcurl4-openssl-dev \
     libxml2-dev \
+    # httpgd の描画バックエンドに必要（Cairo + PNG）
+    libcairo2-dev \
+    libpng-dev \
+    # pymc/pytensor, jax 等のビルドに必要
+    cmake \
     && rm -rf /var/lib/apt/lists/*
 
 # Rパッケージのインストール（install.R で管理）
@@ -34,7 +39,8 @@ RUN python3 -m venv /opt/venv && \
     /opt/venv/bin/pip install --upgrade --no-cache-dir pip
 
 COPY requirements.txt /tmp/requirements.txt
-RUN /opt/venv/bin/pip install --no-cache-dir -r /tmp/requirements.txt
+COPY install.py /tmp/install.py
+RUN /opt/venv/bin/python /tmp/install.py
 
 # 仮想環境を常に優先するようにパスを設定
 ENV PATH="/opt/venv/bin:$PATH"

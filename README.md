@@ -102,6 +102,7 @@ Codespace 起動後、ポート **8787** をブラウザで開くと RStudio Ser
 
 `devcontainer.json` により以下の拡張機能が自動インストールされます。
 
+
 | 拡張機能 | 用途 |
 |---|---|
 | REditorSupport.r | R言語サポート（補完・シンタックスハイライト） |

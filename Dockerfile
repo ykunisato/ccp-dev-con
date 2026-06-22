@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y \
 COPY install.R /tmp/install.R
 RUN Rscript /tmp/install.R
 
-# Python仮想環境を作成してパッケージをインストール（PEP 668 の制限を回避）
+# Python仮想環境を作成してパッケージをインストール
 RUN python3 -m venv /opt/venv && \
     /opt/venv/bin/pip install --upgrade --no-cache-dir pip
 

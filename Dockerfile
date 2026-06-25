@@ -1,5 +1,5 @@
 # R, Tidyverse, Quartoがプリインストールされたベースイメージ
-FROM rocker/tidyverse:latest
+FROM rocker/tidyverse:4.6.1
 
 # rootユーザーで必要なシステムパッケージとPythonをインストール
 USER root
